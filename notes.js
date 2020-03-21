@@ -3,31 +3,12 @@
 //----------------------------------------------------------
 //----------------------------------------------------------
 //----------------------------------------------------------
-//-  S E C T I O N  3  :  Nodes.js Module System (Notes App)
-//--------------------------------  Importing Your Own Files 
-
-	/*	E X A M P L E  :  
-		const getNotes = function () {
-			return 'Your notes...'
-		}
-		module.exports = getNotes
-	*/
-
-
-
-
-
-
-//----------------------------------------------------------
-//----------------------------------------------------------
-//----------------------------------------------------------
-//----------------------------------------------------------
-//----------------------------------------------------------
 //-  S E C T I O N  4  :  File System and Command Line Args ( Notes App )  
 //-------------------------------------------  Adding a Note
 
 	/*	E X A M P L E  :  */
 		const fs = require('fs');
+		const chalk = require('chalk');
 
 		const getNotes = function () {
 			return 'Your notes...'
@@ -58,10 +39,18 @@
 
 		const removeNote = function ( title ) {
 			const notes = loadNotes()
+			
 			const notesToKeep = notes.filter( function( note ) {
 				return note.title !== title
 			})
-			saveNotes( notesToKeep )
+
+			if ( notes.length > notesToKeep.length ) {
+				console.log(chalk.green.inverse('Note removed!'))
+				saveNotes( notesToKeep )
+			} 
+			else {
+				console.log(chalk.red.inverse('No note found!'))
+			}
 		}
 
 		const saveNotes = function ( notes ) {
